@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="./vue.js"></script>
+    <title>Document</title>
+</head>
+<body>
+    <div id="root">
+        <keep-alive>
+            <component :is="last-name"></component>
+        </keep-alive>
+        <button @click="handleClick">change</button>
+
+    </div>
+    <script>
+        Vue.component('first-name',{
+            template:'<div>Elvira</div>'
+
+        })
+        Vue.component('last-name',{
+            template:'<div>Huang</div>'
+
+        })
+        let vm = new Vue({
+           el:'#root', 
+           data:{
+               type:'first-name'
+           },
+           methods:{
+               handleClick(){
+                   this.type=(this.type==='first-name'?'last-name':'first-name')
+               }
+           }
+        
+        })
+    </script>
+</body>
+</html>

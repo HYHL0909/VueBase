@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="./vue.js"></script>
+    <title>Document</title>
+</head>
+<body>
+    <div id="root">
+        num1:<counter @change="handleTotal"
+        ref="num1"></counter>
+        num2:<counter @change="handleTotal"
+        ref="num2"></counter>
+        total:<div>{{total}}</div>
+
+    </div>
+    <script>
+        Vue.component('counter',{
+            data:function(){
+                return {
+                    number:0,
+                }
+            },
+            template:'<div @click="increase">{{number}}</div>',
+            methods:{
+                increase:function(){
+                    this.number++;
+                    this.$emit('change')
+                }
+            }
+
+        })
+        let vm = new Vue({
+            el:'#root',
+            data:{
+                total:0,
+
+            },
+            methods:{
+                handleTotal:function(){
+                    this.total= this.$refs.num1.number+this.$refs.num2.number;
+                }
+
+            }
+          
+
+        })
+    </script>
+</body>
+</html>

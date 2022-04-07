@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="./vue.js"></script>
+    <title>Document</title>
+</head>
+<body>
+
+    <div class="root">
+        <child content="Elvira"></child>
+        <child content="Huang"></child>
+    </div>
+    <script>
+        // 在vue上挂了一个属性，那么每次利用vue创建的实例都会有这个bus属性，指向同一个vue实例
+        Vue.prototype.bus=new Vue()
+
+        Vue.component('child',{
+            props:{
+                content:String,
+            },
+            data:function(){
+                return {
+                    selfContent:this.content
+                }
+            },
+            template:'<div @click="handleClick">{{selfContent}}</div>',
+            methods:{
+                handleClick:function(){
+                 this.bus.$emit('change',this.selfContent)  
+                }
+            },
+
+            //每个子组件去添加未免太过于麻烦，因此用自带的生命周期钩子。
+            mounted:function(){
+                //记得提前保存this
+                let this_=this;
+                this.bus.$on('change',function(msg){
+                    //如过用this，这时候的this指代的是this.bus
+                    this_.selfContent=msg;
+                })
+               
+            }
+
+        })
+
+        let vm=new Vue({
+            el:'.root',
+        })
+    </script>
+</body>
+</html>

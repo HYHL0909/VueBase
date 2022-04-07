@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="./vue.js"></script>
+    <title>Document</title>
+    <style>
+        .fade-enter,.fade-leave-to{
+            opacity:0;
+        }
+        .fade-enter-active,.fade-leave-active{
+            transition: opacity 2s;
+        }
+
+    </style>
+</head>
+<body>
+    <div id="root">
+        
+        <fade :seen="seen">
+            <div>Hello Elvira</div>
+        </fade>
+        <button @click="handleClick">transition</button>
+
+    </div>
+    <script>
+        Vue.component('fade',{
+            props:['seen'],
+            template:`
+            <transition>
+                <slot v-if="seen"></slot>
+                </transition>`
+        })
+        let vm=new Vue({
+            el:"#root",
+            data:{
+                seen:true,
+            },
+            methods:{
+                handleClick:function(){
+                    this.seen=!this.seen;
+                }
+            }
+        })
+    </script>
+</body>
+</html>

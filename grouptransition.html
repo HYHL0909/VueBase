@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="./vue.js"></script>
+    <title>Document</title>
+    <style>
+        .v-enter,.v-leave-to{
+            opacity:0
+        }
+        .v-enter-active,.v-leave-active{
+            transition:opacity 1s;
+        }
+    </style>
+</head>
+<body>
+    <div id="root">
+        <transition-group>
+            <div v-for=" item of list" key="item.id">{{item.name}}</div>
+        </transition-group>
+        
+        <button @click="addEl">Add</button>
+    </div>
+
+    <script>
+      var count=0;
+        var vm = new Vue({
+            el:'#root',
+            data:{
+                list:[],
+            
+            },
+            methods:{
+                addEl:function(){
+                    count++;
+                this.list.push({
+                    id:count,
+                    name:'Elvira'});
+            }
+            }              
+        }
+        )
+    </script>
+</body>
+
+</html>

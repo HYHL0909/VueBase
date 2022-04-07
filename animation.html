@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+ 
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="./vue.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/animate.css@3.5.1" rel="stylesheet" type="text/css">
+    
+    <style>
+        .fade-enter,.fade-leave-to{
+            opacity:0;
+        }
+        .fade-enter-active,.fade-leave-active{
+            transition:opacity 1s;
+        }
+    </style>
+ 
+    
+</head>
+<body>
+    <div id="root">
+        
+        <transition name="fade" appear
+        appear-active-class="animated headShake"
+        enter-active-class="animated headShake fade-enter-active"
+        leave-active-class="animated tada fade-leave-active">    
+        <div v-if="seen">Hello Elvira</div>
+        </transition>   
+        <button @click="handleClick">transition</button>
+
+    </div>
+    <script>
+    
+        let vm=new Vue({
+            el:"#root",
+            data:{
+                seen:true,
+            },
+            methods:{
+                handleClick:function(){
+                    this.seen=!this.seen;
+                }
+            }
+        })
+    </script>
+</body>
+</html>

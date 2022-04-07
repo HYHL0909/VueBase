@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="./vue.js"></script>
+    <title>Document</title>
+    <style>
+        /* 本来fade-enter和fade-enter-active共存，此时opacity：0,下一帧fade-enter被清除，那么opacity就会变成1（default）。此时enter-active还是存在的，它会监视opacity的状态，，它看见opacity ：0-->1,它会将这个状态的改变持续3s */
+        .fade-enter,.fade-leave-to{
+            opacity:0;
+        }
+        .fade-enter-active,.fade-leave-active{
+            transition: opacity 2s;
+        }
+
+    </style>
+</head>
+<body>
+    <div id="root">
+        
+        <transition name="fade">    
+        <div v-if="seen">Hello Elvira</div>
+        </transition>   
+
+        <button @click="handleClick">transition</button>
+
+    </div>
+    <script>
+        let vm=new Vue({
+            el:"#root",
+            data:{
+                seen:true,
+            },
+            methods:{
+                handleClick:function(){
+                    this.seen=!this.seen;
+                }
+            }
+        })
+    </script>
+</body>
+</html>
